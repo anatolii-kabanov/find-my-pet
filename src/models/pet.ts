@@ -1,9 +1,14 @@
 export interface Pet {
     name: string;
     description: string;
-    coordinates: { lat: number; lng: number; };
+    coordinates: Coordinates;
     /**
      * URL to pet picture
      */
     avatar: string; 
+}
+
+export interface Coordinates {
+    lat: number; 
+    lng: number;
 }

@@ -8,11 +8,14 @@ import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import { Pet } from '../../models';
 import { addPet } from '../../local-storage/store';
+import useUserDefaultLocation from '../../hooks/user-default-location-hook';
 
 export const AddPetForm: React.FC = () => {
     const mapContainer = useRef<HTMLDivElement>(null);
     const map = useRef<Map>();
     const { position, error } = useGeoLocation();
+    const { userLocation } = useUserDefaultLocation(position);
+
     const [name, setName] = useState<string>('');
     const [description, setDescription] = useState<string>('');
     const [avatar, setAvatar] = useState<string>('');
@@ -56,13 +59,19 @@ export const AddPetForm: React.FC = () => {
     const onDescriptionChanged = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setDescription(e.target.value);
     }
+
+    useEffect(() => {
+        if (position && map.current) {
+            map.current.setCenter({ lat: position.latitude, lng: position.longitude });
+        }
+    }, [position, map.current])
  
     useEffect(() => {
         if (map.current) return;
         map.current = new Map({
             container: mapContainer.current ?? '',
             style: 'mapbox://styles/mapbox/streets-v11',
-            center: [position?.longitude ?? -70.9, position?.latitude ?? 42.35],
+            center: [userLocation.lng, userLocation.lat],
             zoom: 9
         });
         map.current.on('click', addMarkerOnClick);
