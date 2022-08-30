@@ -16,10 +16,11 @@ export const LeafletMap: React.FC = () => {
     useEffect(() => {
         map.setView(userLocation);
     }, [userLocation]);
+
     const userIcon = L.icon({
         iconUrl: markerIcon,
         iconSize: [22, 38],
-        iconAnchor: [32, 50],
+        iconAnchor: [11, 19],
     });
     return <div>
         <Marker position={userLocation} icon={userIcon}>

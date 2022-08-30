@@ -25,7 +25,6 @@ const App: React.FC = () => {
           <Link to="/add-leaflet">Add via Leaflet</Link>
         </nav>
         <Routes>
-          <Route path="/add-leaflet"/>
           <Route path="/add-mapbox" element={<MapboxForm />} />
           <Route path="/add-leaflet" element={<LeafletForm />} />
           <Route path="/" element={ <Main />} />

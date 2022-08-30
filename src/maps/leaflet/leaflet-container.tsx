@@ -2,9 +2,12 @@ import './leaflet-container.css';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import useGeoLocation from '../../hooks/geo-location-hook';
 import useUserDefaultLocation from '../../hooks/user-default-location-hook';
-import { LeafletMap } from './leaflet-map';
 
-export const LeafletContainer: React.FC = () => { 
+interface LeafletContainerProps {
+    children: React.ReactNode;
+}
+
+export const LeafletContainer: React.FC<LeafletContainerProps> = ({ children }) => { 
     const { position, error } = useGeoLocation();
     const { userLocation } = useUserDefaultLocation(position);
 
@@ -13,6 +16,6 @@ export const LeafletContainer: React.FC = () => {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-       <LeafletMap />
+       {children}
     </MapContainer>;
 }
