@@ -14,7 +14,6 @@ export const MapboxContainer: React.FC = () => {
     const map = useRef<Map>();
     const { position, error } = useGeoLocation();
     const { userLocation } = useUserDefaultLocation(position);
-    const [zoom, setZoom] = useState(10);
 
     const userMarker = new Marker();
     const pets = getPets();
@@ -74,7 +73,7 @@ export const MapboxContainer: React.FC = () => {
                 container: mapContainer.current ?? '',
                 style: 'mapbox://styles/mapbox/streets-v11',
                 center: [userLocation.lng, userLocation.lat],
-                zoom: zoom
+                zoom: userLocation.zoom
             });
         }
         pets.forEach((p) => {
