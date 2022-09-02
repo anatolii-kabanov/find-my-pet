@@ -1,5 +1,5 @@
 import markerIcon from "leaflet/dist/images/marker-icon.png"
-import { Marker, Popup, useMap, useMapEvents } from 'react-leaflet';
+import { Marker, useMapEvents } from 'react-leaflet';
 import useGeoLocation from '../../hooks/geo-location-hook';
 import useUserDefaultLocation from '../../hooks/user-default-location-hook';
 import { useEffect, useMemo, useRef } from 'react';

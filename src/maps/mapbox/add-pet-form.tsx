@@ -47,7 +47,7 @@ export const AddPetForm: React.FC = () => {
             map.current.setCenter({ lat: position.latitude, lng: position.longitude });
         }
     }, [position, map.current])
- 
+
     useEffect(() => {
         if (map.current) return;
         map.current = new Map({
@@ -62,21 +62,21 @@ export const AddPetForm: React.FC = () => {
             accessToken: mapboxgl.accessToken, // Set the access token
             mapboxgl: mapboxgl, // Set the mapbox-gl instance
             marker: false, // Do not use the default marker style
-          });
+        });
 
-          geocoder.on('result', (event: { result: Result }) => {
-            const [ lng, lat ] = event.result.center;
+        geocoder.on('result', (event: { result: Result }) => {
+            const [lng, lat] = event.result.center;
             const latLng = { lat, lng };
             marker.current.setLngLat(latLng).addTo(map.current!);
             setCoordinates(latLng);
-          });
+        });
         // Add the geocoder to the map
         map.current.addControl(geocoder);
     });
 
     return (
         <div>
-            <PetForm submit={onSubmit}/>
+            <PetForm submit={onSubmit} />
             <div className="mapbox">
                 <div>{marker.current.getLngLat()?.toString()}</div>
                 <div className="error">{error}</div>

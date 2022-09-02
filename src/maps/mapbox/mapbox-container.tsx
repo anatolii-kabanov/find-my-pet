@@ -84,8 +84,20 @@ export const MapboxContainer: React.FC = () => {
 
             const popupEl = document.createElement('div');
             const popupRoot = ReactDOM.createRoot(popupEl);
-            popupRoot.render(<PetPopup avatar={p.avatar} description={p.description} name={p.name} coordinates={p.coordinates} getDirection={getDirection} />)
-            const popup = new Popup().setDOMContent(popupEl);
+            const popup = new Popup();
+            const getDirectionCallback = (coordinates: Coordinates) => {
+                getDirection(coordinates);
+                popup.remove();
+            }
+            popupRoot.render(
+                <PetPopup
+                    avatar={p.avatar}
+                    description={p.description}
+                    name={p.name}
+                    coordinates={p.coordinates}
+                    getDirection={getDirectionCallback} />
+            );
+            popup.setDOMContent(popupEl);
             marker.setLngLat(p.coordinates).setPopup(popup).addTo(map.current!);
         })
     }, [pets]);

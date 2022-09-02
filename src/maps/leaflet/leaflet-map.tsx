@@ -9,10 +9,10 @@ import L from 'leaflet';
 export const LeafletMap: React.FC = () => {
     const { position } = useGeoLocation();
     const { userLocation } = useUserDefaultLocation(position);
-    const map = useMap();
-
     const pets = getPets();
 
+    const map = useMap();
+    
     useEffect(() => {
         map.setView(userLocation);
     }, [userLocation]);
@@ -27,20 +27,20 @@ export const LeafletMap: React.FC = () => {
         </Marker>
         {
             pets.map((p, i) => {
-                    const icon = L.icon({
-                        iconUrl: p.avatar,
-                        iconSize: [50, 50],
-                        iconAnchor: [25, 25],
-                        className: "pet-marker"
-                    });
-                    return <Marker key={i} icon={icon} position={p.coordinates} >
-                        <Popup>
-                            <img src={p.avatar} className="pet-popup-img" />
-                            <div>Name: <h4>{p.name}</h4></div>
-                            <p>{p.description}</p>
-                        </Popup>
-                    </Marker>
-                }
-            )}
+                const icon = L.icon({
+                    iconUrl: p.avatar,
+                    iconSize: [50, 50],
+                    iconAnchor: [25, 25],
+                    className: "pet-marker"
+                });
+                return <Marker key={i} icon={icon} position={p.coordinates} >
+                    <Popup>
+                        <img src={p.avatar} className="pet-popup-img" />
+                        <div>Name: <h4>{p.name}</h4></div>
+                        <p>{p.description}</p>
+                    </Popup>
+                </Marker>
+            })
+        }
     </div>;
 }

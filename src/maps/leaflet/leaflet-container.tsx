@@ -8,7 +8,7 @@ interface LeafletContainerProps {
 }
 
 export const LeafletContainer: React.FC<LeafletContainerProps> = ({ children }) => { 
-    const { position, error } = useGeoLocation();
+    const { position } = useGeoLocation();
     const { userLocation } = useUserDefaultLocation(position);
 
     return <MapContainer className="leaflet-map" zoom={userLocation.zoom} center={userLocation}>
